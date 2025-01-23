@@ -1,42 +1,94 @@
-.postForm {
-  background-color: white;
-  padding: 20px;
+.post-form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #ffffff;
   border-radius: 8px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-.postForm h3 {
-  margin-top: 0;
-  color: #333;
+.post-form {
+  padding: 16px;
 }
 
-.input,
+.form-group {
+  margin-bottom: 16px;
+}
+
 .textarea {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
+  resize: none;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
+  min-height: 80px;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 8px 8px 36px;
+  border: 1px solid #dbdbdb;
   border-radius: 4px;
   font-size: 14px;
 }
 
-.textarea {
-  min-height: 100px;
-  resize: vertical;
+.input-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8e8e8e;
 }
 
 .button {
-  background-color: #4a90e2;
-  color: white;
+  width: 100%;
+  background-color: #6D2E46;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 8px 16px;
   border: none;
-  padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
 }
 
 .button:hover {
-  background-color: #3a7bc8;
+  scale: 1.01;
+  transition: all 0.3s ease;
 }
 
+.button:disabled {
+  background-color: #A26769;
+  cursor: not-allowed;
+  scale: 1;
+}
+
+.button-icon {
+  margin-right: 8px;
+}
+
+.progress-container {
+  margin-top: 16px;
+}
+
+.progress-bar {
+  height: 4px;
+  background-color: #dbdbdb;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #0095f6;
+  transition: width 0.3s ease;
+}

@@ -1,5 +1,4 @@
-import React from "react"
-import { useState } from "react"
+import React, { useState } from "react";
 import {
   Card,
   CardHeader,
@@ -10,37 +9,48 @@ import {
   IconButton,
   Typography,
   Box,
-} from "@mui/material"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHeart, faComment, faPaperPlane, faBookmark } from "@fortawesome/free-solid-svg-icons"
-import CommentList from "./CommentList.tsx"
-import CommentForm from "./CommentForm.tsx"
+} from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
+import CommentList from "./CommentList.tsx";
+import CommentForm from "./CommentForm.tsx";
 
 interface PostProps {
   post: {
-    id: number
-    username: string
-    avatar: string
-    image: string
-    caption: string
-    likes: number
+    id: number;
+    username: string;
+    avatar: string;
+    image: string;
+    caption: string;
+    likes: number;
     comments: {
-      id: number
-      username: string
-      content: string
+      id: number;
+      username: string;
+      content: string;
       replies: {
-        id: number
-        username: string
-        content: string
-        replies: any[]
-      }[]
-    }[]
-  }
-  addComment: (postId: number, content: string, parentCommentId?: number) => void
+        id: number;
+        username: string;
+        content: string;
+        replies: any[];
+      }[];
+    }[];
+  };
+  addComment: (postId: number, content: string, parentCommentId?: number) => void;
 }
 
 const Post: React.FC<PostProps> = ({ post, addComment }) => {
-  const [showComments, setShowComments] = useState(false)
+  const [showComments, setShowComments] = useState(false);
+  const [likes, setLikes] = useState(post.likes);
+  const [liked, setLiked] = useState(false);
+
+  const handleLike = () => {
+    if (liked) {
+      setLikes(likes - 1);
+    } else {
+      setLikes(likes + 1);
+    }
+    setLiked(!liked);
+  };
 
   return (
     <Card>
@@ -52,17 +62,20 @@ const Post: React.FC<PostProps> = ({ post, addComment }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="like">
+        <IconButton aria-label="like" onClick={handleLike} color={liked ? "error" : "default"}>
           <FontAwesomeIcon icon={faHeart} />
         </IconButton>
-        <IconButton aria-label="comment" onClick={() => setShowComments(!showComments)}>
+        <IconButton aria-label="comment" onClick={() => setShowComments(!showComments)} >
           <FontAwesomeIcon icon={faComment} />
         </IconButton>
         <Box sx={{ flexGrow: 1 }} />
       </CardActions>
-      <CardContent>
+      <CardContent sx={{ display: "flex", gap: 2}}>
         <Typography variant="body2" color="text.secondary">
-          {post.likes} likes
+          {likes} {likes === 1 ? "like" : "likes"}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {post.comments.length} {post.comments.length === 1 ? "comment" : "comments"}
         </Typography>
       </CardContent>
       {showComments && (
@@ -75,8 +88,7 @@ const Post: React.FC<PostProps> = ({ post, addComment }) => {
         </Box>
       )}
     </Card>
-  )
-}
+  );
+};
 
-export default Post
-
+export default Post;
