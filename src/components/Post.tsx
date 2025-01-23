@@ -58,13 +58,7 @@ const Post: React.FC<PostProps> = ({ post, addComment }) => {
         <IconButton aria-label="comment" onClick={() => setShowComments(!showComments)}>
           <FontAwesomeIcon icon={faComment} />
         </IconButton>
-        <IconButton aria-label="share">
-          <FontAwesomeIcon icon={faPaperPlane} />
-        </IconButton>
         <Box sx={{ flexGrow: 1 }} />
-        <IconButton aria-label="bookmark">
-          <FontAwesomeIcon icon={faBookmark} />
-        </IconButton>
       </CardActions>
       <CardContent>
         <Typography variant="body2" color="text.secondary">

@@ -1,47 +1,54 @@
-import type React from "react"
-import { useState } from "react"
-import { TextField, Button, Box } from "@mui/material"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons"
+"use client";
+
+import React, { useState, useRef, useEffect } from "react";
+import { Send } from "lucide-react";
+import styles from "./CommentForm.module.css";
 
 interface CommentFormProps {
-  addComment: (content: string) => void
+  addComment: (content: string) => void;
 }
 
 const CommentForm: React.FC<CommentFormProps> = ({ addComment }) => {
-  const [content, setContent] = useState("")
+  const [content, setContent] = useState("");
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (content.trim()) {
-      addComment(content)
-      setContent("")
+      addComment(content);
+      setContent("");
     }
-  }
+  };
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [content]);
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ display: "flex", alignItems: "center", mt: 2 }}>
-      <TextField
-        fullWidth
-        variant="outlined"
-        size="small"
-        placeholder="Add a comment..."
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        sx={{ mr: 1 }}
-      />
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        size="small"
-        startIcon={<FontAwesomeIcon icon={faPaperPlane} />}
-      >
-        Post
-      </Button>
-    </Box>
-  )
-}
+    <form onSubmit={handleSubmit} className={styles.commentForm}>
+      <div className={styles.textareaWrapper}>
+        <textarea
+          ref={textareaRef}
+          className={styles.textarea}
+          placeholder="Add a comment..."
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          rows={1}
+        />
+        <button
+          type="submit"
+          disabled={!content.trim()}
+          className={`${styles.button} ${!content.trim() ? styles.disabledButton : ""}`}
+        >
+          <Send size={16} />
+        </button>
+      </div>
+      <div className={styles.characterCount}>{content.length}/2200</div>
+    </form>
+  );
+};
 
-export default CommentForm
-
+export default CommentForm;
