@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Image, Send } from "lucide-react";
-import styles from "./PostForm.module.css";
+import { Send } from "lucide-react";
+import styles from "../styles/PostForm.module.css";
 
 interface PostFormProps {
   addPost: (caption: string, image: string) => void;

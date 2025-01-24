@@ -1,7 +1,7 @@
 import React from "react";
 import { supabase } from "../supabaseClient.ts";
 import { User } from "lucide-react";
-import styles from '../components/LoginPage.module.css';
+import styles from '../styles/LoginPage.module.css';
 
 const LoginPage: React.FC = () => {
 

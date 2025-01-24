@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { Send } from "lucide-react";
-import styles from "./CommentForm.module.css";
+import styles from "../styles/CommentForm.module.css";
 
 interface CommentFormProps {
   addComment: (content: string) => void;

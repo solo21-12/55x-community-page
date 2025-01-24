@@ -10,7 +10,7 @@ import PostList from "../components/PostList.tsx";
 import PostForm from "../components/PostForm.tsx";
 import { Comment, Post } from "../types/posts.ts";
 import { initialPosts } from "../data/posts.ts";
-import { supabase } from "../supabaseClient.ts"; // Ensure Supabase client is imported
+import { supabase } from "../supabaseClient.ts";
 
 library.add(fas);
 
@@ -34,7 +34,7 @@ const theme = createTheme({
 
 const App: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>(initialPosts);
-  const [user, setUser] = useState<any>(null); // Store user information here
+  const [user, setUser] = useState<any>(null);
 
   // Fetch user information from Supabase on component mount
   useEffect(() => {
