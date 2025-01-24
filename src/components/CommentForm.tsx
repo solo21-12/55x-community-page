@@ -6,7 +6,7 @@ import styles from "../styles/CommentForm.module.css";
 
 interface CommentFormProps {
   addComment: (content: string) => void;
-  onFormClose?: () => void; // Optional callback to close the form
+  onFormClose?: () => void;
 }
 
 const CommentForm: React.FC<CommentFormProps> = ({ addComment, onFormClose }) => {

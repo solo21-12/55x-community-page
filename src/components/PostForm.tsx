@@ -59,14 +59,13 @@ const PostForm: React.FC<PostFormProps> = ({ addPost }) => {
           />
         </div>
 
-        {/* Full Button Area for Image Selection */}
         <div className={styles.inputContainer} onClick={() => document.getElementById("imageInput")?.click()}>
           <input
             id="imageInput"
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            style={{ display: "none" }} // Hide the file input
+            style={{ display: "none" }}
           />
           <input
             type="text"

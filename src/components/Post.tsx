@@ -55,7 +55,7 @@ const Post: React.FC<PostProps> = ({ post, addComment }) => {
   return (
     <Card>
       <CardHeader avatar={<Avatar src={post.avatar} alt={post.username} />} title={post.username} />
-      <CardMedia component="img" height="500" image={post.image} alt={post.caption} />
+      <CardMedia component="img" height="400" image={post.image} alt={post.caption} />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           <strong>{post.username}</strong> {post.caption}
