@@ -18,7 +18,7 @@ const PostForm: React.FC<PostFormProps> = ({ addPost }) => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result as string);
+        setImage(reader.result as string); // Update image state with the preview
       };
       reader.readAsDataURL(file); // Reads the file and converts it to a data URL
     }
@@ -51,42 +51,52 @@ const PostForm: React.FC<PostFormProps> = ({ addPost }) => {
       <form onSubmit={handleSubmit}>
         <div>
           <textarea
-            placeholder="Write a post*..."
+            placeholder="Write a caption*..."
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
             className={styles.textarea}
             rows={3}
           />
         </div>
-        <div style={{ position: "relative" }}>
+
+        {/* Full Button Area for Image Selection */}
+        <div className={styles.inputContainer} onClick={() => document.getElementById("imageInput")?.click()}>
+          <input
+            id="imageInput"
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            style={{ display: "none" }} // Hide the file input
+          />
           <input
             type="text"
-            placeholder="Image URL*"
+            placeholder="Select Image*"
             value={image ? "Image selected" : ""}
             readOnly
             className={styles.input}
           />
           <label
-            style={{
-              position: "absolute",
-              left: "10px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              color: "#ccc",
-              width: "16px",
-              height: "16px",
-              cursor: "pointer",
-            }}
+            className={styles.imageLabel}
           >
-            <Image style={{ width: "16px", height: "16px" }} />
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              style={{ display: "none" }} // Hide the file input
-            />
           </label>
         </div>
+
+        {/* Image Preview */}
+        {image && (
+          <div style={{ textAlign: "center", marginBottom: "20px", marginTop: "20px" }}>
+            <img
+              src={image}
+              alt="Preview"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "200px",
+                borderRadius: "8px",
+                boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+              }}
+            />
+          </div>
+        )}
+
         <button
           type="submit"
           disabled={isPosting || !caption.trim() || !image.trim()}
@@ -101,6 +111,7 @@ const PostForm: React.FC<PostFormProps> = ({ addPost }) => {
             </>
           )}
         </button>
+
         {isPosting && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -121,7 +132,7 @@ const PostForm: React.FC<PostFormProps> = ({ addPost }) => {
                 style={{
                   width: `${progress}%`,
                   height: "100%",
-                  backgroundColor: "#4a90e2",
+                  backgroundColor: "#6D2E46",
                   transition: "width 0.2s ease",
                 }}
               />
