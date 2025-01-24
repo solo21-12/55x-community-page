@@ -4,9 +4,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles"
 import CssBaseline from "@mui/material/CssBaseline"
 import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
-import AppBar from "@mui/material/AppBar"
-import Toolbar from "@mui/material/Toolbar"
-import { Link } from "react-router-dom";
 
 import { motion, AnimatePresence } from "framer-motion"
 import { library } from "@fortawesome/fontawesome-svg-core"

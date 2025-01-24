@@ -1,18 +1,28 @@
-
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Image, Send } from "lucide-react";
-import  styles from "./PostForm.module.css";
+import styles from "./PostForm.module.css";
+
 interface PostFormProps {
   addPost: (caption: string, image: string) => void;
 }
 
 const PostForm: React.FC<PostFormProps> = ({ addPost }) => {
   const [caption, setCaption] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState<string>("");
   const [isPosting, setIsPosting] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result as string);
+      };
+      reader.readAsDataURL(file); // Reads the file and converts it to a data URL
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,11 +62,11 @@ const PostForm: React.FC<PostFormProps> = ({ addPost }) => {
           <input
             type="text"
             placeholder="Image URL*"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
+            value={image ? "Image selected" : ""}
+            readOnly
             className={styles.input}
           />
-          <Image
+          <label
             style={{
               position: "absolute",
               left: "10px",
@@ -65,8 +75,17 @@ const PostForm: React.FC<PostFormProps> = ({ addPost }) => {
               color: "#ccc",
               width: "16px",
               height: "16px",
+              cursor: "pointer",
             }}
-          />
+          >
+            <Image style={{ width: "16px", height: "16px" }} />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              style={{ display: "none" }} // Hide the file input
+            />
+          </label>
         </div>
         <button
           type="submit"
@@ -77,7 +96,7 @@ const PostForm: React.FC<PostFormProps> = ({ addPost }) => {
             "Posting..."
           ) : (
             <>
-              <Send style={{ width: "16px", height: "16px", marginRight: "8px"}} />
+              <Send style={{ width: "16px", height: "16px", marginRight: "8px" }} />
               Post
             </>
           )}

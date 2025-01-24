@@ -6,9 +6,10 @@ import styles from "./CommentForm.module.css";
 
 interface CommentFormProps {
   addComment: (content: string) => void;
+  onFormClose?: () => void; // Optional callback to close the form
 }
 
-const CommentForm: React.FC<CommentFormProps> = ({ addComment }) => {
+const CommentForm: React.FC<CommentFormProps> = ({ addComment, onFormClose }) => {
   const [content, setContent] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -17,6 +18,9 @@ const CommentForm: React.FC<CommentFormProps> = ({ addComment }) => {
     if (content.trim()) {
       addComment(content);
       setContent("");
+      if (onFormClose) {
+        onFormClose();
+      }
     }
   };
 
